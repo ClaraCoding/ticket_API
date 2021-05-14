@@ -1,0 +1,40 @@
+create table learner
+(
+	id serial not null
+		constraint learner2_pk
+			primary key,
+	firstname varchar,
+	lastname varchar,
+	"promoName" varchar,
+	"promoYear" integer
+);
+
+alter table learner owner to postgres;
+
+create table ticket
+(
+	id serial not null
+		constraint ticket2_pk
+			primary key,
+	date varchar,
+	description varchar,
+	learner_idx integer
+		constraint ticket2_learner_id_fk
+			references learner
+);
+
+alter table ticket owner to postgres;
+
+create table "ticketStatus"
+(
+	ticket_idx integer not null
+		constraint ticketstatus_pk
+			primary key
+		constraint ticketstatus_ticket_id_fk
+			references ticket,
+	"isClosed" boolean,
+	date_end date
+);
+
+alter table "ticketStatus" owner to postgres;
+
